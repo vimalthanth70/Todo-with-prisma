@@ -1,5 +1,7 @@
-import { Router ,Request,Response} from "express";
+import { Router ,Request,Response, NextFunction} from "express";
 import { PrismaClient } from "@prisma/client";
+import { signUpMiddleware } from "../middlewares/user.middleware";
+import { signUpController } from "../controllers/user.controllers";
 
 const userRouter = Router()
 const client = new PrismaClient()
@@ -12,6 +14,8 @@ userRouter.get("/",async(req:Request,res:Response)=>{
         console.log(err)
     }
 })
+
+userRouter.post("/signup",signUpMiddleware,signUpController)
 
 
 export default userRouter

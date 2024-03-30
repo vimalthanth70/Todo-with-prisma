@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
+const user_middleware_1 = require("../middlewares/user.middleware");
+const user_controllers_1 = require("../controllers/user.controllers");
 const userRouter = (0, express_1.Router)();
 const client = new client_1.PrismaClient();
 userRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,4 +24,5 @@ userRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.log(err);
     }
 }));
+userRouter.post("/signup", user_middleware_1.signUpMiddleware, user_controllers_1.signUpController);
 exports.default = userRouter;
